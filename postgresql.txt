@@ -1,0 +1,39 @@
+Server [localhost]: localhost
+Database [postgres]: postgres
+Port [5432]: 5432
+Username [postgres]: postgres
+Password for user postgres:
+psql (9.6.24)
+Type "help" for help.
+
+postgres=# create database books;
+CREATE DATABASE
+postgres=# create user books;
+CREATE ROLE
+postgres=# alter user books with encrypted password '123';
+ALTER ROLE
+postgres=# grant all privileges on database books to books;
+GRANT
+postgres=# \c books;
+
+books=#
+DROP TABLE books;
+CREATE TABLE books(
+  pk SERIAL PRIMARY KEY,
+  id UUID NOT NULL,
+  title VARCHAR(100),
+  author VARCHAR(100),
+  publishedYear INTEGER,
+  genre VARCHAR(100),
+  UNIQUE(ID)
+);
+
+
+-- Grant SELECT, INSERT, UPDATE, and DELETE permissions on the 'books' table
+GRANT SELECT, INSERT, UPDATE, DELETE ON TABLE books TO books;
+
+-- If you want to grant all privileges
+GRANT ALL PRIVILEGES ON TABLE books TO books;
+
+-- If you need permissions for sequences (e.g., for auto-incremented IDs)
+GRANT USAGE, SELECT ON ALL SEQUENCES IN SCHEMA public TO books;
